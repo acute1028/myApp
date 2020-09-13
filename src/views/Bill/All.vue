@@ -1,13 +1,17 @@
 <template>
-  <div id="name">Profile</div>
+  <div id="all">
+    <List></List>
+  </div>
 </template>
 
 <script>
+import List from "./List.vue";
 export default {
-  name: "name",
   data() {
     return {};
   },
+  components: { List },
+  computed: {},
   methods: {}
 };
 </script>
