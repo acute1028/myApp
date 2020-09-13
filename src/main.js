@@ -9,7 +9,14 @@ import {
   TabContainer,
   TabContainerItem
 } from "mint-ui";
-import { Pagination } from "vant";
+import {
+  Pagination,
+  Field,
+  Calendar,
+  Button,
+  DropdownMenu,
+  DropdownItem
+} from "vant";
 import "mint-ui/lib/style.css";
 
 Vue.component(Tabbar.name, Tabbar);
@@ -18,6 +25,11 @@ Vue.component(TabItem.name, TabItem);
 Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.use(Pagination);
+Vue.use(Field);
+Vue.use(Calendar);
+Vue.use(Button);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 
 new Vue({
   router,
