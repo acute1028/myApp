@@ -1,23 +1,26 @@
 <template>
   <div id="list">
-    <ul>
-      <li class="header">
-        <span>日付</span>
-        <span>分類</span>
-        <span>収入</span>
-        <span>支出</span>
-        <span>備考</span>
-      </li>
+    <ul class="th">
+      <li>日付</li>
+      <li>分類</li>
+      <li>収入</li>
+      <li>支出</li>
+      <li>備考</li>
     </ul>
-    <ul v-for="(bill, index) in billList" :key="index" class="billList">
-      <li>
-        <span>{{ bill.date }}</span>
-        <span>{{ bill.type }}</span>
-        <span>{{ bill.income }}</span>
-        <span>{{ bill.spend }}</span>
-        <span>{{ bill.memo }}</span>
-      </li>
+    <ul v-for="(bill, index) in currentList" :key="index" class="td">
+      <li>{{ bill.date }}</li>
+      <li>{{ bill.type }}</li>
+      <li>{{ bill.income }}</li>
+      <li>{{ bill.spend }}</li>
+      <li>{{ bill.memo }}</li>
     </ul>
+    <van-pagination
+      v-model="currentPage"
+      :total-items="this.billList.length"
+      :items-per-page="10"
+      :show-page-size="5"
+      :force-ellipses="true"
+    />
   </div>
 </template>
 
@@ -25,27 +28,41 @@
 import { mapState } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      currentPage: 1
+    };
   },
   computed: {
-    ...mapState(["billList"])
+    ...mapState(["billList"]),
+    currentList: function() {
+      return this.billList.slice(
+        (this.currentPage - 1) * 10,
+        this.currentPage * 10
+      );
+    }
   },
   methods: {}
 };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-#list
-  margin-top 10px
-ul li
-  display list-item
-  span
-    width 20%
-    height 100%
-    border 0.5px solid #ddd
-li.header
-  background #bfc
-ul.billList:nth-child(odd)
-  li
-    background #ddd
+<style lang="less" scoped>
+ul {
+  display: flex;
+  padding: 0px;
+  line-height: 20px;
+  li {
+    display: block;
+    width: 20%;
+    flex: 1 1 auto;
+    border: 1px solid #ddd;
+  }
+  &.th {
+    background: #3cb371;
+    font-weight: bold;
+    border-top: 1px;
+  }
+  &.td:nth-child(odd) {
+    background: #f0fff0;
+  }
+}
 </style>

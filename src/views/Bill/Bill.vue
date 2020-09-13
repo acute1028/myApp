@@ -1,17 +1,27 @@
 <template>
   <div id="bill">
     <h1>家計簿</h1>
-    <ul>
-      <li
-        :key="index"
-        v-for="(tab, index) in tabs"
-        @click="toggle(index, tab.view)"
-        :class="{ active: active == index }"
-      >
-        {{ tab.type }}
-      </li>
-    </ul>
-    <component :is="currentView"></component>
+    <mt-navbar v-model="selected">
+      <mt-tab-item id="all">全て</mt-tab-item>
+      <mt-tab-item id="day">日計</mt-tab-item>
+      <mt-tab-item id="month">月計</mt-tab-item>
+      <mt-tab-item id="year">年計</mt-tab-item>
+    </mt-navbar>
+
+    <mt-tab-container v-model="selected">
+      <mt-tab-container-item id="all">
+        <All></All>
+      </mt-tab-container-item>
+      <mt-tab-container-item id="day">
+        <Day></Day>
+      </mt-tab-container-item>
+      <mt-tab-container-item id="month">
+        <Month></Month>
+      </mt-tab-container-item>
+      <mt-tab-container-item id="year">
+        <Year></Year>
+      </mt-tab-container-item>
+    </mt-tab-container>
   </div>
 </template>
 
@@ -25,26 +35,7 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      active: 0,
-      currentView: "All",
-      tabs: [
-        {
-          type: "All",
-          view: "All"
-        },
-        {
-          type: "Day",
-          view: "Day"
-        },
-        {
-          type: "Month",
-          view: "Month"
-        },
-        {
-          type: "Year",
-          view: "Year"
-        }
-      ]
+      selected: "all"
     };
   },
   components: {
@@ -57,27 +48,24 @@ export default {
     this.getBillList();
   },
   methods: {
-    ...mapActions(["getBillList"]),
-    toggle(i, v) {
-      this.active = i;
-      this.currentView = v;
-    }
+    ...mapActions(["getBillList"])
   }
 };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-ul
-  display flex
-  border-top 2px solid #ddd
-ul li
-  height:40px
-  background #fff
-  border-right 2px solid #ddd
-  display inline-flex
-  flex 1 0 auto
-  justify-content center
-  align-items center
-ul li.active
- background #bfc
+<style lang="less" scoped>
+h1 {
+  margin: 5px 0 0 5px;
+}
+.mint-navbar {
+  margin-bottom: 15px;
+  .mint-tab-item {
+    flex: 1 1 auto;
+    color: #999999;
+    &.is-selected {
+      color: #02a774;
+      border-bottom: 3px solid #02a774;
+    }
+  }
+}
 </style>

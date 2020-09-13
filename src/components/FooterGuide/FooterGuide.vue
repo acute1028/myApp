@@ -1,92 +1,85 @@
 <template>
-  <footer class="footer_guide border-1px">
-    <div
-      class="guide_item"
-      @click="goto('/home')"
-      :class="{ on: isCurrent('/home') }"
-    >
-      <span class="item_icon">
-        <i class="iconfont icon-shouye"></i>
-      </span>
-      <span>ホーム</span>
-    </div>
-    <div
-      class="guide_item"
-      @click="goto('/bill')"
-      :class="{ on: isCurrent('/bill') }"
-    >
-      <span class="item_icon">
-        <i class="iconfont icon-bill"></i>
-      </span>
-      <span>家計簿</span>
-    </div>
-    <div
-      class="guide_item"
-      @click="goto('/period')"
-      :class="{ on: isCurrent('/period') }"
-    >
-      <span class="item_icon">
-        <i class="iconfont icon-shenglijiankang"></i>
-      </span>
-      <span>生理管理</span>
-    </div>
-    <div
-      class="guide_item"
-      @click="goto('/profile')"
-      :class="{ on: isCurrent('/profile') }"
-    >
-      <span class="item_icon">
-        <i class="iconfont icon-ren"></i>
-      </span>
-      <span>プロファイル</span>
-    </div>
-  </footer>
+  <div>
+    <mt-tabbar v-model="selected">
+      <mt-tab-item id="home">
+        <span class="item_icon">
+          <i class="iconfont icon-shouye"></i>
+        </span>
+        <span>ホーム</span>
+      </mt-tab-item>
+      <mt-tab-item id="bill">
+        <span class="item_icon">
+          <i class="iconfont icon-bill"></i>
+        </span>
+        <span>家計簿</span>
+      </mt-tab-item>
+      <mt-tab-item id="period">
+        <span class="item_icon">
+          <i class="iconfont icon-shenglijiankang"></i>
+        </span>
+        <span>生理管理</span>
+      </mt-tab-item>
+      <mt-tab-item id="profile">
+        <span class="item_icon">
+          <i class="iconfont icon-ren"></i>
+        </span>
+        <span>プロファイル</span>
+      </mt-tab-item>
+    </mt-tabbar>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "FooterGuide",
   data() {
-    return {};
+    return {
+      selected: this.$route.path.replace("/", "")
+    };
   },
-  methods: {
-    goto(path) {
-      this.$router.replace(path);
-    },
-    isCurrent(path) {
-      return this.$route.path === path;
+  watch: {
+    selected: function(val) {
+      switch (val) {
+        case "home":
+          this.$router.replace("/home");
+          break;
+        case "bill":
+          this.$router.replace("/bill");
+          break;
+        case "period":
+          this.$router.replace("/period");
+          break;
+        case "profile":
+          this.$router.replace("/profile");
+          break;
+        default:
+          break;
+      }
     }
   }
 };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-@import "../../assets/stylus/mixins.styl"
-.footer_guide
-  top-border-1px(#e4e4e4)
-  position fixed
-  z-index 100
-  left 0
-  right 0
-  bottom 0
-  background-color #fff
-  width 100%
-  height 50px
-  display flex
-  .guide_item
-    display flex
-    flex 1 1 auto
-    text-align center
-    flex-direction column
-    align-items center
-    margin 5px
-    color #999999
-    &.on
-      color #02a774
-    span
-      font-size 12px
-      margin-top 2px
-      margin-bottom 2px
-      .iconfont
-        font-size 22px
+<style lang="less" scoped>
+.mint-tabbar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  .mint-tab-item {
+    flex: 1 1 auto;
+    color: #999999;
+    &.is-selected {
+      color: #02a774;
+    }
+    span {
+      display: block;
+      font-size: 12px;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      .iconfont {
+        font-size: 22px;
+      }
+    }
+  }
+}
 </style>

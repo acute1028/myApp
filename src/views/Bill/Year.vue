@@ -1,6 +1,6 @@
 <template>
-  <div id="year">
-    year
+  <div id="month">
+    month
   </div>
 </template>
 
@@ -13,4 +13,4 @@ export default {
 };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus"></style>
+<style lang="less" scoped></style>
