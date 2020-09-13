@@ -1,5 +1,6 @@
 <template>
   <div id="bill">
+    <h1>家計簿</h1>
     <ul>
       <li
         :key="index"
@@ -19,6 +20,7 @@ import All from "./All.vue";
 import Day from "./Day.vue";
 import Month from "./Month.vue";
 import Year from "./Year.vue";
+import { mapActions } from "vuex";
 
 export default {
   data() {
@@ -51,7 +53,11 @@ export default {
     Month,
     Year
   },
+  mounted() {
+    this.getBillList();
+  },
   methods: {
+    ...mapActions(["getBillList"]),
     toggle(i, v) {
       this.active = i;
       this.currentView = v;
@@ -61,21 +67,17 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-ul{
-  display:flex;
-  border-top:2px solid #bfc;
-}
-ul li{
-  height:40px;
-  background: #fff;
-  border-right:2px solid #bfc;
-  display: inline-flex;
-  flex: 1 0 auto;
-  justify-content: center;
-  align-items: center;
-  cursor:pointer;
-}
-ul li.active{
- background:#bfc;
-}
+ul
+  display flex
+  border-top 2px solid #ddd
+ul li
+  height:40px
+  background #fff
+  border-right 2px solid #ddd
+  display inline-flex
+  flex 1 0 auto
+  justify-content center
+  align-items center
+ul li.active
+ background #bfc
 </style>
