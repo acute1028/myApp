@@ -45,6 +45,7 @@
 
 <script>
 export default {
+  name: "FooterGuide",
   data() {
     return {};
   },

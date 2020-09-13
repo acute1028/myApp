@@ -8,6 +8,7 @@
 <script>
 import FooterGuide from "@/components/FooterGuide/FooterGuide.vue";
 export default {
+  name: "App",
   components: { FooterGuide },
   mounted() {},
   methods: {}
